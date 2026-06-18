@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: promptverse
+      POSTGRES_USER: promptverse
+      POSTGRES_PASSWORD: promptverse_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U promptverse -d promptverse"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  qdrant:
+    image: qdrant/qdrant:v1.11.3
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant-data:/qdrant/storage
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.10
+    environment:
+      MEILI_ENV: development
+    ports:
+      - "7700:7700"
+
+volumes:
+  postgres-data:
+  qdrant-data:
