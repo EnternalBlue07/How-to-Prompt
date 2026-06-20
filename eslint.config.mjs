@@ -11,6 +11,6 @@ export default tseslint.config(
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   ...tseslint.configs.recommended,
   {
-    ignores: [".next/**", ".turbo/**", "node_modules/**", "dist/**"],
+    ignores: ["**/.next/**", ".next/**", ".turbo/**", "node_modules/**", "dist/**"],
   },
 );
